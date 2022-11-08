@@ -1,0 +1,25 @@
+{
+	"dockerFile": "../Dockerfile",
+	"runArgs": [
+		"--network=host",
+		"--privileged",
+		"--cap-add=SYS_PTRACE",
+		"--security-opt=seccomp:unconfined",
+		"--security-opt=apparmor:unconfined",
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		"--cap-add=SYS_ADMIN",
+		"--cap-add=NET_ADMIN"
+	],
+	"containerEnv": { "DISPLAY": "${localEnv:DISPLAY}" },
+	// Set *default* container specific settings.json values on container create.
+	"extensions": [
+		"ms-python.python",
+		"ms-iot.vscode-ros",
+		"ms-toolsai.jupyter",
+		"ms-azuretools.vscode-docker",
+		"ms-vscode.cmake-tools",
+		"ms-vscode.cpptools",
+		"ms-vscode-remote.remote-containers",
+		"spadin.memento-inputs"
+	]
+}
