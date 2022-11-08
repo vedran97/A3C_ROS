@@ -162,7 +162,7 @@
     </link>
     
     <joint name="joint_1" type="revolute">
-        <origin rpy="0 0 0" xyz="0 0 191.5" />
+        <origin rpy="0 0 0" xyz="0 0 .1915" />
         <parent link="base_link" />
         <child link="link_1" />
         <axis xyz="0 0 1" />
@@ -170,7 +170,7 @@
         <limit effort="0" lower="-3.14" upper="3.14" velocity="2.61" /> 
     </joint>
     <joint name="joint_2" type="revolute">
-        <origin rpy="-1.57 -1.57 0" xyz="0 141 0" />
+        <origin rpy="-1.57 -1.57 0" xyz="0 .141 0" />
         <parent link="link_1" />
         <child link="link_2" />
         <axis xyz="0 0 1" />
@@ -178,7 +178,7 @@
         <limit effort="0" lower="-2.61" upper="2.61" velocity="2.61" /> 
     </joint>
     <joint name="joint_3" type="revolute">
-        <origin rpy="0 0 0" xyz="230 0 -141.5" />
+        <origin rpy="0 0 0" xyz="0.230 0 -0.1415" />
         <parent link="link_2" />
         <child link="link_3" />
         <axis xyz="0 0 1" />
@@ -186,7 +186,7 @@
         <limit effort="0" lower="-2.61" upper="2.61" velocity="3.141" /> 
     </joint>
     <joint name="joint_4" type="revolute">
-        <origin rpy="1.57 0 1.57" xyz="230 0 0" />
+        <origin rpy="1.57 0 1.57" xyz="0.230 0 0" />
         <parent link="link_3" />
         <child link="link_4" />
         <axis xyz="0 0 1" />
@@ -194,7 +194,7 @@
         <limit effort="0" lower="-3.14" upper="3.14" velocity="3.141" /> 
     </joint>
     <joint name="joint_5" type="revolute">
-        <origin rpy="-1.57 0 0" xyz="0 163.5 0" />
+        <origin rpy="-1.57 0 0" xyz="0 0.1635 0" />
         <parent link="link_4" />
         <child link="link_5" />
         <axis xyz="0 0 1" />
@@ -202,7 +202,7 @@
         <limit effort="0" lower="-3.14" upper="3.14" velocity="3.141" /> 
     </joint>
     <joint name="joint_6" type="revolute">
-        <origin rpy="1.57 -1.57 0" xyz="0 -166 0" />
+        <origin rpy="1.57 -1.57 0" xyz="0 -0.166 0" />
         <parent link="link_5" />
         <child link="link_6" />
         <axis xyz="0 0 1" />
