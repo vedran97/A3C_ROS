@@ -40,7 +40,7 @@
         </collision>
         <inertial>
             <mass value="5.1" />
-            <origin xyz="0.00463 45.97 65.523" rpy="0 0 0" />
+            <origin xyz="0.00000463 .04597 .065523" rpy="0 0 0" />
             <inertia ixx="30498.55" iyy="18651.954" izz="18651.95" ixy="-7.99" ixz="-10.33" iyz="-10913.84" />
         </inertial>
     </link>
@@ -62,7 +62,7 @@
         </collision>
         <inertial>
             <mass value="1.36" />
-            <origin xyz="110.4 0 16.61" rpy="0 0 0" />
+            <origin xyz="0.1104 0 0.01661" rpy="0 0 0" />
             <inertia ixx="1658.64" iyy="13069" izz="14101" ixy="0" ixz="-39.958" iyz="0.0" />
         </inertial>
     </link>
@@ -84,7 +84,7 @@
         </collision>
         <inertial>
             <mass value="3.319" />
-            <origin xyz="0.07798 -35.74 -63.2725" rpy="0 0 0" />
+            <origin xyz="0.00007798 -.03574 -0.0632725" rpy="0 0 0" />
             <inertia ixx="17921" iyy="11307" izz="10111" ixy="19.58" ixz="25.03" iyz="-6255" />
         </inertial>
     </link>
@@ -106,7 +106,7 @@
         </collision>
         <inertial>
             <mass value="0.508" />
-            <origin xyz="-0.0176 -5.787 -49.62" rpy="0 0 0" />
+            <origin xyz="-0.0000176 -.005787 -.04962" rpy="0 0 0" />
             <inertia ixx="1041.6" iyy="1147" izz="490.056" ixy="0.63303" ixz="1.6942" iyz="-126.61" />
         </inertial>
     </link>
@@ -128,7 +128,7 @@
         </collision>
         <inertial>
             <mass value="2.49617" />
-            <origin xyz="0.0127 -41.24 69.76" rpy="0 0 0" />
+            <origin xyz="0.0000127 -0.04124 0.06976" rpy="0 0 0" />
             <inertia ixx="12154" iyy="7124" izz="7121" ixy="-16.3" ixz="13.5" iyz="4268" />
         </inertial>
     </link>
@@ -150,13 +150,13 @@
         </collision>
         <inertial>
             <mass value="0.5" />
-            <origin xyz="0.214 -4.06 29.02" rpy="0 0 0" />
+            <origin xyz="0.000214 -0.00406 .02902" rpy="0 0 0" />
             <inertia ixx="352.796" iyy="341.516" izz="518.422" ixy="0.03125" ixz="0.7269" iyz="-17.2391" />
         </inertial>
     </link>
     
     <joint name="joint_1" type="revolute">
-        <origin rpy="0 0 0" xyz="0 0 .1915" />
+        <origin rpy="0 0 0" xyz="0 0 0.1915" />
         <parent link="base_link" />
         <child link="link_1" />
         <axis xyz="0 0 1" />
@@ -164,7 +164,7 @@
         <limit effort="0" lower="-3.14" upper="3.14" velocity="2.61" /> 
     </joint>
     <joint name="joint_2" type="revolute">
-        <origin rpy="-1.57 -1.57 0" xyz="0 .141 0" />
+        <origin rpy="-1.57 -1.57 0" xyz="0 0.141 0" />
         <parent link="link_1" />
         <child link="link_2" />
         <axis xyz="0 0 1" />
@@ -180,7 +180,7 @@
         <limit effort="0" lower="-2.61" upper="2.61" velocity="3.141" /> 
     </joint>
     <joint name="joint_4" type="revolute">
-        <origin rpy="1.57 0 1.57" xyz="0.230 0 0" />
+        <origin rpy="1.57 0 1.57" xyz="0.230 0.0 0.0" />
         <parent link="link_3" />
         <child link="link_4" />
         <axis xyz="0 0 1" />
@@ -188,7 +188,7 @@
         <limit effort="0" lower="-3.14" upper="3.14" velocity="3.141" /> 
     </joint>
     <joint name="joint_5" type="revolute">
-        <origin rpy="-1.57 0 0" xyz="0 0.1635 0" />
+        <origin rpy="-1.57 0 0" xyz="0.0 0.1635 0.0" />
         <parent link="link_4" />
         <child link="link_5" />
         <axis xyz="0 0 1" />
@@ -215,26 +215,26 @@
         <parent link="base" />
         <child link="base_link" />
     </joint>
-  <gazebo reference="base_link">
-  <material>Gazebo/Orange</material>
+  <gazebo reference="base">
+  <material>Gazebo/DarkGrey</material>
   </gazebo>
   <gazebo reference="link_1">
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="link_2">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
   <gazebo reference="link_3">
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="link_4">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
   <gazebo reference="link_5">
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="link_6">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
     
 </robot>
