@@ -1,11 +1,5 @@
 <?xml version="1.0" ?>
 <robot name="arm" xmlns:xacro="http://ros.org/wiki/xacro">
-	<link name="dummy_link">
-	</link>
-	<joint name="dummy_joint" type="fixed">
-		<parent link="dummy_link"/>
-		<child link="base_link"/>
-	</joint>
     <link name="base_link">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
@@ -218,8 +212,8 @@
     <link name="base" />
     <joint name="base_link-base" type="fixed">
         <origin rpy="0 0 0" xyz="0 0 0" />
-        <parent link="base_link" />
-        <child link="base" />
+        <parent link="base" />
+        <child link="base_link" />
     </joint>
   <gazebo reference="base_link">
   <material>Gazebo/Orange</material>
