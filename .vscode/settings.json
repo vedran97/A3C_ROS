@@ -69,7 +69,9 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "dense": "cpp",
+        "forward_list": "cpp"
     },
     "python.analysis.extraPaths": [
         "/workspaces/ENPM_662_Project2/devel/lib/python3/dist-packages",
