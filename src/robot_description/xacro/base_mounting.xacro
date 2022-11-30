@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="A3C" xmlns:xacro="http://wiki.ros.org/xacro">
-    <xacro:include filename="../urdf/base.urdf"/>
+    <xacro:include filename="$(find a3c_moveit_config)/config/gazebo_A3C.urdf"/>
 	<link name="world">
 	</link>
 	<joint name="fixture" type="fixed">
