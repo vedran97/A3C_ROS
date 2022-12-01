@@ -9,7 +9,9 @@
                 "/workspaces/ENPM_662_Project2/devel/include/**",
                 "/opt/ros/noetic/include/**",
                 "/usr/include/**",
-                "${workspaceFolder}/src/a3c_kinematics/include"
+                "${workspaceFolder}/src/a3c_kinematics/include",
+            
+        
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
