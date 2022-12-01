@@ -3,11 +3,11 @@
 #include <eigen3/Eigen/Dense>
 #include <array>
 using namespace Eigen;
-using Eigen::MatrixXd;
 namespace a3c{
 using JointAngles = std::array<double, 6>;
 struct Pose {
     Eigen::Vector3d position;
+    Eigen::Quaterniond orientation;
 };
 class Kinematics
 {

@@ -24,6 +24,7 @@ Pose Kinematics::fk(const JointAngles& jointAngles) {
     }
     auto retPose = Pose();
     retPose.position = {T(0,3),T(1,3),T(2,3)};
+    retPose.orientation = Eigen::Quaterniond(T.topLeftCorner<3, 3>());
     return retPose;
 }
 Matrix4d Kinematics::getTransformationMatrix(const Eigen::Array<double,1,mNumDHCols>& dhRow) const{
