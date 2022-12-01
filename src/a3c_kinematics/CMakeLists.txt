@@ -4,7 +4,7 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -O3)
+  add_compile_options(-Wall -Wextra -Wpedantic -O3 -ffast-math)
 endif()
 
 ## Find catkin macros and libraries
@@ -123,7 +123,7 @@ LINK_DIRECTORIES(/usr/local/lib)
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-  src/ForwardKinematics.cpp
+  src/Kinematics.cpp
 )
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the library
@@ -134,7 +134,7 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(a3c_fk_node src/main.cpp)
+add_executable(a3c_fk_node profiling/FKprofiler.cpp)
 target_link_libraries(a3c_fk_node
   ${catkin_LIBRARIES} ${PROJECT_NAME}
 )

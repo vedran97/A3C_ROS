@@ -1,4 +1,4 @@
-#include "a3c_kinematics/ForwardKinematics.hpp"
+#include "a3c_kinematics/Kinematics.hpp"
 #include<iostream>
 #include<cmath>
 namespace a3c{
@@ -15,7 +15,6 @@ initialize DH table in this constructor
 
 }
 Pose Kinematics::fk(const JointAngles& jointAngles) {
-
     Matrix4d T = Matrix4d::Identity();
     for (int i=0; i<mNumDHRows; i++){
         dhTable(i,thetaIndex) += jointAngles.at(i);
