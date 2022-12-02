@@ -80,6 +80,14 @@ int main(int argc, char** argv)
   std::vector<double> firstWaypointJointAngles = {
     -0.2374,0.2906,-1.7445,1.4493,-0.4103,2.5357
   };
+  /**
+   * Move to initial approach position of picking
+  */
+  executeJointSpaceMotion(firstWaypointJointAngles,moveGroupInterface,jointModelGroup,plan);
+  ros::Duration(1.0).sleep();
+  /**
+   * Task space motion in -Z direction
+  */
   //Set next task space pose
   geometry_msgs::Pose taskSpacePose1;
   taskSpacePose1.position.x = -0.3436;
@@ -91,23 +99,77 @@ int main(int argc, char** argv)
   taskSpacePose1.orientation.z = -0.217817;
   std::vector<geometry_msgs::Pose> waypoints;
   waypoints.push_back(taskSpacePose1);
-  executeJointSpaceMotion(firstWaypointJointAngles,moveGroupInterface,jointModelGroup,plan);
-  ros::Duration(1.0).sleep();
   executeCartesianMotion(waypoints,moveGroupInterface);
   ros::Duration(1.0).sleep();
+  /**
+   * Task space motion ,Reach In
+  */
   waypoints.clear();
-  geometry_msgs::Pose taskSpacePose2;
-  taskSpacePose2.position.x = -0.3436;
-  taskSpacePose2.position.y = 0.04350;
-  taskSpacePose2.position.z =  0.289671;
-  taskSpacePose2.orientation.w = 0.692813;
-  taskSpacePose2.orientation.x = 0.306239;
-  taskSpacePose2.orientation.y = -0.615454;
-  taskSpacePose2.orientation.z = -0.217817;
+  geometry_msgs::Pose taskSpacePose2 = taskSpacePose1;
+  taskSpacePose2.position.x -=  0.15;
   waypoints.push_back(taskSpacePose2);
   executeCartesianMotion(waypoints,moveGroupInterface);
   ros::Duration(1.0).sleep();
+  // TODO : Add pick logic  
+
+  /**
+   * Task space motion ,Reach Out
+  */
+  waypoints.clear();
+  geometry_msgs::Pose taskSpacePose3 = taskSpacePose2;
+  taskSpacePose3.position.x +=  0.15;
+  waypoints.push_back(taskSpacePose3);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+  ros::Duration(1.0).sleep();
+  /**
+   * Task space motion in +Z direction
+  */
+  waypoints.clear();
+  geometry_msgs::Pose taskSpacePose4 = taskSpacePose3;
+  taskSpacePose4.position.z =  0.289671;
+  waypoints.push_back(taskSpacePose4);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+  ros::Duration(1.0).sleep();
+  /**
+   * Rotate J1 to get to approach of place position
+  */
+  std::vector<double> secondWaypointJointAngles = firstWaypointJointAngles;
+  secondWaypointJointAngles.at(0) = 1.0;
+  executeJointSpaceMotion(secondWaypointJointAngles,moveGroupInterface,jointModelGroup,plan);
+  ros::Duration(1.0).sleep();
+  /**
+   * Task space motion in -Z direction
+  */
+  waypoints.clear();
+  geometry_msgs::Pose taskSpacePose5;
+  taskSpacePose5.position.x = -0.140888;
+  taskSpacePose5.position.y = -0.305582;
+  taskSpacePose5.position.z = 0.150407;
+  taskSpacePose5.orientation.w = 0.690448;
+  taskSpacePose5.orientation.x = 0.607006;
+  taskSpacePose5.orientation.y = -0.319058;
+  taskSpacePose5.orientation.z = 0.230277;
+  waypoints.push_back(taskSpacePose5);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+  ros::Duration(1.0).sleep();
+
+  // TODO : Place the part 
+
+  /**
+   * Reach Out to clear space for joint motion
+  */
+  waypoints.clear();
+  geometry_msgs::Pose taskSpacePose6 = taskSpacePose5;
+  taskSpacePose6.position.y += 0.1582;
+  waypoints.push_back(taskSpacePose6);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+  ros::Duration(1.0).sleep();
+
+  /**
+   * Return to home pose
+  */
   executeJointSpaceMotion(homePose,moveGroupInterface,jointModelGroup,plan);
+  ros::Duration(1.0).sleep();
   ros::shutdown();
   return 0;
 }
