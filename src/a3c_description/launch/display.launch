@@ -1,7 +1,7 @@
 <launch>
   <arg
     name="model" />
-  <param name= "robot_description" command="$(find xacro)/xacro --inorder $(find robot_description)/xacro/base_mounting.xacro " />
+  <param name= "robot_description" command="$(find xacro)/xacro --inorder $(find a3c_description)/xacro/base_mounting.xacro " />
   <node
     name="joint_state_publisher_gui"
     pkg="joint_state_publisher_gui"
@@ -14,5 +14,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find robot_description)/rviz/basic_display.rviz" />
+    args="-d $(find a3c_description)/rviz/basic_display.rviz" />
 </launch>

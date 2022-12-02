@@ -26,9 +26,6 @@ echo "source ${WORKSPACE_PATH}/devel/setup.bash" >> /home/$USERNAME/.bashrc
 # Define Python version for ros
 echo "export ROS_PYTHON_VERSION=3" >> /home/$USERNAME/.bashrc
 
-# Define Turtle bot environment variable 
-echo "export TURTLEBOT3_MODEL=burger" >> /home/$USERNAME/.bashrc
-
 source /home/$USERNAME/.bashrc
 
 rosdep update

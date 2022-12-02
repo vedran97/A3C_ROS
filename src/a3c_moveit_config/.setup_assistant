@@ -1,6 +1,6 @@
 moveit_setup_assistant_config:
   URDF:
-    package: robot_description
+    package: a3c_description
     relative_path: urdf/base.urdf
     xacro_args: ""
   SRDF:
@@ -8,4 +8,4 @@ moveit_setup_assistant_config:
   CONFIG:
     author_name: Vedant Ranade
     author_email: vedantmranade@gmail.com
-    generated_timestamp: 1669770411
+    generated_timestamp: 1669960499

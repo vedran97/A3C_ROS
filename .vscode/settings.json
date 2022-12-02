@@ -72,7 +72,8 @@
         "bit": "cpp",
         "dense": "cpp",
         "forward_list": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "csignal": "cpp"
     },
     "python.analysis.extraPaths": [
         "/workspaces/ENPM_662_Project2/devel/lib/python3/dist-packages",

@@ -6,3 +6,4 @@ ros-noetic-rqt-common-plugins
 ros-noetic-ros-control
 ros-noetic-ros-controllers
 ros-noetic-moveit
+ros-noetic-rviz-visual-tools
