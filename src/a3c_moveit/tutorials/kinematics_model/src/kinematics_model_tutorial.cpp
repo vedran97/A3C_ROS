@@ -21,7 +21,7 @@ int main(int argc, char** argv)
   ROS_INFO("Base frame of Model,which is used to compute tranforms: %s", kinematic_model->getModelFrame().c_str());
   // Construct RobotState from RobotModel
   auto kinematic_state = std::make_shared<robot_state::RobotState>(kinematic_model);
-  kinematic_state->setToDefaultValues();
+  // kinematic_state->setToDefaultValues();
   const auto joint_model_group = kinematic_model->getJointModelGroup(PLANNING_GROUP);
   //Get joints in the group
   const std::vector<std::string> &joint_names = joint_model_group->getJointModelNames();
@@ -34,6 +34,10 @@ int main(int argc, char** argv)
   ROS_INFO("Get names of All active joints:");  
   for(const auto& jointName:active_joint_names){
     ROS_INFO("%s",jointName.c_str());
+  }
+  for(const auto&jointName:active_joint_names)
+  {
+    ROS_INFO("Joint %s: %f", jointName.c_str(), *kinematic_state->getJointPositions(jointName));
   }
 
   //Forward Kinematics:

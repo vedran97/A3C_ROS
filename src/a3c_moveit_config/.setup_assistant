@@ -1,11 +1,11 @@
 moveit_setup_assistant_config:
   URDF:
     package: a3c_description
-    relative_path: urdf/base.urdf
+    relative_path: xacro/gripper_mounting.xacro
     xacro_args: ""
   SRDF:
     relative_path: config/A3C.srdf
   CONFIG:
     author_name: Vedant Ranade
     author_email: vedantmranade@gmail.com
-    generated_timestamp: 1669960499
+    generated_timestamp: 1670110120
