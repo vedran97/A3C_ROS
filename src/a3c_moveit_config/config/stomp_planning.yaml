@@ -37,8 +37,8 @@ stomp/a3c_plan_group:
         publish_intermediate: True
         marker_topic: stomp_trajectory
         marker_namespace: optimized
-stomp/gripper_solver:
-  group_name: gripper_solver
+stomp/robotiq_gripper_solver:
+  group_name: robotiq_gripper_solver
   optimization:
     num_timesteps: 60
     num_iterations: 40

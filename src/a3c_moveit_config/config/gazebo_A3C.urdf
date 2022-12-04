@@ -242,6 +242,11 @@
     <gazebo reference="link_6">
         <material>Gazebo/DarkGrey</material>
     </gazebo>
+    <link name="world" />
+    <joint name="fixture" type="fixed">
+        <parent link="world" />
+        <child link="base" />
+    </joint>
     <link name="robotiq_arg2f_base_link">
         <inertial>
             <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145" />

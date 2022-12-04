@@ -16,16 +16,12 @@ initialize DH table in this constructor
 }
 Pose Kinematics::fk(const JointAngles& jointAngles) {
     Matrix4d T = Matrix4d::Identity();
-    for (int i=0; i<mNumDHRows; i++){
+    for (size_t i=0; i<mNumDHRows; i++){
         dhTable(i,thetaIndex) += jointAngles.at(i);
         T = T* getTransformationMatrix(dhTable.row(i));
         dhTable(i,thetaIndex) -= jointAngles.at(i);
-
     }
-    auto retPose = Pose();
-    retPose.position = {T(0,3),T(1,3),T(2,3)};
-    retPose.orientation = Eigen::Quaterniond(T.topLeftCorner<3, 3>());
-    return retPose;
+    return Pose(T);
 }
 Matrix4d Kinematics::getTransformationMatrix(const Eigen::Array<double,1,mNumDHCols>& dhRow) const{
     double sinTheta = sin(dhRow(thetaIndex));

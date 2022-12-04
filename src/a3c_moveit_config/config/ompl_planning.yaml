@@ -154,7 +154,8 @@ a3c_plan_group:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-gripper_solver:
+robotiq_gripper_solver:
+  default_planner_config: RRTstar
   planner_configs:
     - AnytimePathShortening
     - SBL

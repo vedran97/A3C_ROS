@@ -6,6 +6,10 @@ using namespace Eigen;
 namespace a3c{
 using JointAngles = std::array<double, 6>;
 struct Pose {
+    Pose(const Matrix4d& T){
+        this->position = {T(0,3),T(1,3),T(2,3)};
+        this->orientation = Eigen::Quaterniond(T.topLeftCorner<3, 3>());
+    }
     Eigen::Vector3d position;
     Eigen::Quaterniond orientation;
 };
