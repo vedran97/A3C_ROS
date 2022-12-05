@@ -5,33 +5,33 @@ from sympy import *
 t = symbols ('t')
 theta1 = symbols('theta1')
 theta2 = symbols('theta2')
-theta3 = 0
+theta3 = symbols('theta3')
 theta4 = symbols('theta4')
 theta5 = symbols('theta5')
 theta6 = symbols('theta6')
-theta7 = symbols('theta7')
-# d1=0.1915
-# d2=0.1405
-# d3=0.1415
-# d4=0.230
-# d5=0.1635
-# d6=0.1665
-# a2=0.230
-d1=symbols('d1')
-d2=symbols('d2')
-d3=symbols('d3')
-d4=symbols('d4')
-d5=symbols('d5')
-d6=symbols('d6')
-a2=symbols('a2')
-pi= symbols('pi')
+d1=0.1915
+d2=0.1410
+d3=0.1415
+d4=0.230
+d5=0.1635
+d6=0.1660
+pen = 0.1
+a2=0.230
+# d1=symbols('d1')
+# d2=symbols('d2')
+# d3=symbols('d3')
+# d4=symbols('d4')
+# d5=symbols('d5')
+# d6=symbols('d6')
+# a2=symbols('a2')
+# pi= symbols('pi')
 #Making the DH matrix
 dh_matrix = [[0,theta1,0,d1],# done
-             [0,theta2-pi/2,-pi/2,d2],
-             [a2,theta3+pi/2,0,-d3],
-             [0,theta4,pi/2,d4],
-             [0,theta5,-pi/2,d5],
-             [0,theta6+pi/2,pi/2,d6]]
+             [0,theta2-math.pi/2,-math.pi/2,d2],
+             [a2,theta3+math.pi/2,0,-d3],
+             [0,theta4,math.pi/2,d4],
+             [0,theta5,-math.pi/2,d5],
+             [0,theta6+math.pi/2,math.pi/2,d6]]
 #cleaning A from very small values
 def cleanA(A):
     for i in range(A.shape[0]):
@@ -53,7 +53,7 @@ def getAMatrix(input):
         [sin(theta)*sin(alpha), cos(theta)*sin(alpha), cos(alpha), cos(alpha)*d],
         [0, 0, 0, 1]]
     )
-    return cleanA(A)
+    return simplify((A))
 A = []
 j=1
 for i in dh_matrix:
@@ -66,4 +66,4 @@ for i in dh_matrix:
 #Transformation from EE to base
 
 T = simplify((A[0]@A[1]@A[2]@A[3]@A[4]@A[5]))
-pprint(cleanA(T[:,3]))
+pprint(cleanA(T.subs([(theta1, -2.11703), (theta2, -0.370231), (theta3, -1.37619), (theta4, -0.000243698), (theta5, -1.39371), (theta6, -2.11568)])))
