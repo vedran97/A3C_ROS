@@ -104,7 +104,6 @@ while (q_init[0]<=math.pi):
         Z_LIST.append((xee[:-1,3])[2])
         q_init[1]-=0.1
     q_init[0]+=1
-    print("inside outer loop")
     
 
 fig = plt.figure()

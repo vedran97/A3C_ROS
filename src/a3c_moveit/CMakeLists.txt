@@ -52,6 +52,7 @@ include_directories(SYSTEM ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIR} ${EIGEN3_
 add_subdirectory(tutorials/kinematics_model)
 add_subdirectory(tutorials/move_group_interface)
 add_subdirectory(pick_and_place)
+add_subdirectory(a3c_ik_validation)
 # add_subdirectory(tutorials/motion_planning_pipeline)
 
 # add_subdirectory(doc/pick_place)

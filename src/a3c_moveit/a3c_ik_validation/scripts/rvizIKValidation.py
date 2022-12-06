@@ -4,6 +4,13 @@ import plotly.graph_objects as go
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import *
+
+import time
+import sys
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+
 t = symbols ('t')
 theta1 = symbols('theta1')
 theta2 = symbols('theta2')
@@ -91,18 +98,17 @@ Z_axis_6 = T_6[:3, 2]
 J = Matrix([[X_P_diff1, X_P_diff2, X_P_diff3, X_P_diff4, X_P_diff5, X_P_diff6],
     [Z_axis_1, Z_axis_2,Z_axis_3, Z_axis_4, Z_axis_5, Z_axis_6]])
 
-
 # Prepping the traj gen loop
+
 trajectory_time = 5
 steps = 500
 time_steps = np.linspace(0,trajectory_time,steps)
 delta_t = trajectory_time/steps
-radius = 0.095
-
+radius = 0.05
 omega = 2*np.pi/trajectory_time
 
-x_dot = -1 * omega * radius * np.sin(omega*time_steps-(0.785398163+3*math.pi/2))
-y_dot = +1 * omega * radius * np.cos(omega*time_steps-(0.785398163+3*math.pi/2))
+x_dot = +1 * omega * radius * np.sin(omega*time_steps-(0.785398163+3*math.pi/2))
+y_dot = -1 * omega * radius * np.cos(omega*time_steps-(0.785398163+3*math.pi/2))
 z_dot = 0
 
 X_LIST=[]
@@ -142,8 +148,6 @@ q_list = np.zeros((6,steps))
 Xee = np.zeros((6,steps))
 
 Xee_init = T.subs([(theta1, q_old[0]), (theta2, q_old[1]), (theta3, q_old[2]), (theta4, q_old[3]), (theta5, q_old[4]), (theta6, q_old[5])])
-pprint("Initial EEF Pose:")
-pprint(simplify(np.array(Xee_init).astype(np.float64)))
 
 for i in tqdm(range(steps)):
   jacobianMatrix_step = J.subs([(theta1, q_old[0]), (theta2, q_old[1]), (theta3, q_old[2]), (theta4, q_old[3]), (theta5, q_old[4]), (theta6, q_old[5])])
@@ -151,8 +155,6 @@ for i in tqdm(range(steps)):
   joint_vel = np.linalg.pinv(jacobianMatrix_step) @ X_dot[:,i]
 
   q_old = q_old + delta_t*joint_vel
-
-  # print(joint_vel.shape)
 
   q_list[:,i] = (q_old)
 
@@ -180,6 +182,7 @@ fig.tight_layout()
 plt.show()
 fig.savefig("./Generated_Trajectory.png")
 
+#plotted joint angles generated for drawing a circle
 fig, axs = plt.subplots(3,2)
 k=0
 for i in range(3):
@@ -191,23 +194,54 @@ plt.show()
 fig.savefig("./Joint_Angles.png")
 
 
-#3D interactive plot using plotly
-trace = go.Scatter3d(
-   x = x, y = y, z = z,mode = 'markers', marker = dict(
-      size = 1,
-      color = 'red', # set color to an array/list of desired values
-      colorscale = 'reds'
-      )
-   )
+moveit_commander.roscpp_initialize(sys.argv)
+rospy.init_node("move_group_python_interface_tutorial", anonymous=True)
+robot = moveit_commander.RobotCommander()
 
-fig = go.Figure(data = [trace])
+scene = moveit_commander.PlanningSceneInterface()
+## This interface can be used to plan and execute motions:
+group_name = "a3c_plan_group"
+move_group = moveit_commander.MoveGroupCommander(group_name)
+##
+## Getting Basic Information
+## ^^^^^^^^^^^^^^^^^^^^^^^^^
+# We can get the name of the reference frame for this robot:
+planning_frame = move_group.get_planning_frame()
+print("============ Planning frame: %s" % planning_frame)
 
-fig.update_layout(
-    scene = dict(
-            xaxis = dict(nticks=10, range=[0.1,0.3], title = "X(m)"),
-                     yaxis = dict(nticks=10, range=[0.1,0.3], title = "Y(m)"),
-                     zaxis = dict(nticks=10, range=[0,0.5], title = "Z(m)"),),
-    width=1000,
-    height=1000,
-    margin=dict(r=20, l=10, b=10, t=10))
-fig.show()
+# We can also print the name of the end-effector link for this group:
+eef_link = move_group.get_end_effector_link()
+print("============ End effector link: %s" % eef_link)
+
+# We can get a list of all the groups in the robot:
+group_names = robot.get_group_names()
+print("============ Available Planning Groups:", robot.get_group_names())
+
+# Get robot to initial pose
+move_group.go(q_init)
+# Calling ``stop()`` ensures that there is no residual movement
+move_group.stop()
+print("Start recording video now,Enable traces")
+time.sleep(5)
+
+#send circle trajectory
+jointTrajectories = moveit_msgs.msg.trajectory_msgs.msg.JointTrajectory()
+jointTrajectories.header.frame_id = "world"
+jointTrajectories.header.stamp = jointTrajectories.header.stamp.from_sec(0)
+jointTrajectories.header.seq = 0
+jointTrajectories.joint_names = ["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]
+jointTrajectories.points = []
+
+for i in tqdm(range(steps)):
+    newPoint = moveit_msgs.msg.trajectory_msgs.msg.JointTrajectoryPoint()
+    newPoint.velocities = [0,0,0,0,0,0]
+    newPoint.accelerations = [0,0,0,0,0,0]
+    newPoint.positions = q_list[:,i]
+    newPoint.time_from_start  = newPoint.time_from_start.from_sec(time_steps[i])
+    jointTrajectories.points.append(newPoint)
+
+traj = moveit_msgs.msg.RobotTrajectory()
+traj.joint_trajectory = jointTrajectories
+move_group.execute(traj)
+move_group.stop()
+
