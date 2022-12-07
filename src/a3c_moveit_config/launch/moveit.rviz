@@ -11,7 +11,7 @@ Panels:
         - /MotionPlanning1/Planning Metrics1
         - /RobotModel1
       Splitter Ratio: 0.5
-    Tree Height: 326
+    Tree Height: 226
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views

@@ -1,5 +1,5 @@
 a3c_position_controller:
-  type: effort_controllers/JointPositionController
+  type: position_controllers/JointTrajectoryController
   joints:
     - joint_1
     - joint_2
@@ -39,7 +39,7 @@ a3c_position_controller:
       i: 1
       i_clamp: 1
 gripper_controller:
-  type: effort_controllers/JointPositionController
+  type: position_controllers/JointTrajectoryController
   joints:
     - finger_joint
   gains:
