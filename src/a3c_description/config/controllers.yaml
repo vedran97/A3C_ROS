@@ -1,0 +1,40 @@
+A3C:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  #controller 1
+  controller_1:
+    type: effort_controllers/JointPositionController
+    joint: joint_1
+    pid : {p: 250.0, i: 2.00, d: 3.0}
+
+  #controller 1
+  controller_2:
+    type: effort_controllers/JointPositionController
+    joint: joint_2
+    pid : {p: 250.0, i: 2.00, d: 3.0}
+
+  #controller 2
+  controller_3:
+    type: effort_controllers/JointPositionController
+    joint: joint_3
+    pid : {p: 250.0, i: 2.00, d: 3.0}
+
+  #controller 3
+  controller_4:
+    type: effort_controllers/JointPositionController
+    joint: joint_4
+    pid : {p: 250.0, i: 2.00, d: 3.0}
+
+  #controller 4
+  controller_5:
+    type: effort_controllers/JointPositionController
+    joint: joint_5
+    pid : {p: 250.0, i: 2.00, d: 3.0}
+
+  #controller 6
+  controller_6:
+    type: effort_controllers/JointPositionController
+    joint: joint_6
+    pid : {p: 250.0, i: 2.00, d: 3.0}
