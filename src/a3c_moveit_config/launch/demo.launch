@@ -24,8 +24,9 @@
   <arg name="use_rviz" default="true" />
 
   <!-- If needed, broadcast static tf for robot root -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world base" />
-
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world base" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="map_to_base" args="0 0 0 0 0 0 /map /base 10" />
+  <node pkg="tf" type="static_transform_publisher" name="map_to_world" args="0 0 0 0 0 0 /map /world 10" />
 
 
   <group if="$(eval arg('moveit_controller_manager') == 'fake')">

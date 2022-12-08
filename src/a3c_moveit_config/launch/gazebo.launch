@@ -13,7 +13,7 @@
   </include>
 
   <!-- send robot urdf to param server -->
-  <param name="robot_description" textfile="$(find a3c_moveit_config)/config/gazebo_A3C.urdf" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find a3c_description)/xacro/ros_control_traj.xacro " />
 
   <!-- unpause only after loading robot model -->
   <arg name="unpause" value="$(eval '' if arg('paused') else '-unpause')" />
@@ -23,10 +23,10 @@
     respawn="false" output="screen" />
 
   <!-- Load joint controller parameters for Gazebo -->
-  <rosparam file="$(find a3c_moveit_config)/config/gazebo_controllers.yaml" />
+  <rosparam file="$(find a3c_moveit_config)/config/gazebo_controllers.yaml" command="load"/>
   <!-- Spawn Gazebo ROS controllers -->
-  <node name="gazebo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller" />
+  <node name="gazebo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller joint_traj_controller gripper" ns="/A3C"/>
   <!-- Load ROS controllers -->
-  <include file="$(dirname)/ros_controllers.launch"/>
+  <!-- <include file="$(dirname)/ros_controllers.launch"/> -->
 
 </launch>

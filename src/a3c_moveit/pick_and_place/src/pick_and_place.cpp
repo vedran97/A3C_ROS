@@ -162,7 +162,7 @@ int main(int argc, char** argv)
   ROS_INFO_STREAM("Pick part position: " << moveGroupInterface.getCurrentPose().pose.position);
   ROS_INFO_STREAM("Pick part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
 
-  executeJointSpaceMotion({0.1610},moveGroupInterface2,gripperModelGroup,gripperPlan);
+  executeJointSpaceMotion({0.1550},moveGroupInterface2,gripperModelGroup,gripperPlan);
   moveit_msgs::AttachedCollisionObject att_coll_object;
   att_coll_object.object.id = "box";
   att_coll_object.link_name = "tool0";

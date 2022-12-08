@@ -12,7 +12,7 @@
 	<arg name ="init_pose" value="-x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
 
 	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-        <param name="use_gui" value="true"/>
+        <param name="use_gui" value="false"/>
   </node>
 
   <node pkg="tf" type="static_transform_publisher" name="map_to_base" args="0 0 0 0 0 0 /map /base 10" />
