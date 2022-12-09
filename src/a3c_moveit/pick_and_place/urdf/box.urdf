@@ -2,25 +2,25 @@
   <link name="my_box">
     <inertial>
       <origin xyz="0 0 0" />
-      <mass value="1.0" />
+      <mass value="0.00001" />
       <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
     </inertial>
     <visual>
-      <origin xyz="-0.678912 0.0225 0.10001"/>
+      <origin xyz="-0.658912 0.0225 0.10001"/>
       <geometry>
         <box size="0.05 0.08 0.2" />
       </geometry>
     </visual>
     <collision>
-      <origin xyz="-0.678912 0.0225 0.10001"/>
+      <origin xyz="-0.658912 0.0225 0.10001"/>
       <geometry>
         <box size="0.05 0.08 0.2" />
       </geometry>
     </collision>
   </link>
   <gazebo reference="my_box">
-    <material>Gazebo/Blue</material>
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+    <mu1>10</mu1>
+    <mu2>10</mu2>
   </gazebo>
 </robot>

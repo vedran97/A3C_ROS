@@ -346,6 +346,10 @@
             </geometry>
         </collision>
     </link>
+    <gazebo reference="left_inner_finger">
+        <mu1>4</mu1>
+        <mu2>4</mu2>
+    </gazebo>
     <link name="left_inner_finger_pad">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
@@ -371,10 +375,6 @@
             <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
         </inertial>
     </link>
-    <gazebo reference="left_inner_finger_pad">
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
-    </gazebo>
     <link name="left_inner_knuckle">
         <inertial>
             <origin rpy="0 0 0" xyz="0.000123011831763771 0.0507850843201817 0.00103968640075166" />
@@ -463,6 +463,10 @@
             </geometry>
         </collision>
     </link>
+    <gazebo reference="right_inner_finger">
+        <mu1>4</mu1>
+        <mu2>4</mu2>
+    </gazebo>
     <link name="right_inner_finger_pad">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
@@ -488,10 +492,6 @@
             <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
         </inertial>
     </link>
-    <gazebo reference="left_inner_finger_pad">
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
-    </gazebo>
     <link name="right_inner_knuckle">
         <inertial>
             <origin rpy="0 0 0" xyz="0.000123011831763771 0.0507850843201817 0.00103968640075166" />
@@ -588,7 +588,7 @@
     <transmission name="finger_joint_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="finger_joint">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="finger_joint_motor">
             <mechanicalReduction>1</mechanicalReduction>
@@ -630,7 +630,7 @@
     </joint>
     <gazebo>
         <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-            <robotNamespace></robotNamespace>
+            <robotNamespace />
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             <legacyModeNS>true</legacyModeNS>
         </plugin>
@@ -642,7 +642,7 @@
         </joint>
         <actuator name="joint_1_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="joint_2_transmission">
@@ -652,7 +652,7 @@
         </joint>
         <actuator name="joint_2_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="joint_3_transmission">
@@ -662,7 +662,7 @@
         </joint>
         <actuator name="joint_3_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="joint_4_transmission">
@@ -672,7 +672,7 @@
         </joint>
         <actuator name="joint_4_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="joint_5_transmission">
@@ -682,7 +682,7 @@
         </joint>
         <actuator name="joint_5_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="joint_6_transmission">
@@ -692,7 +692,7 @@
         </joint>
         <actuator name="joint_6_motor">
             <mechanicalReduction>1</mechanicalReduction>
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </actuator>
     </transmission>
     <transmission name="trans_left_inner_knuckle_joint">

@@ -124,6 +124,10 @@
         </geometry>
       </collision>
     </link>
+    <gazebo reference="${prefix}${fingerprefix}_inner_finger">
+        <mu1>20</mu1>
+        <mu2>20</mu2>
+    </gazebo>
   </xacro:macro>
 
   <!-- Finger pad link, the default are the "big pads" with rubber-->
@@ -148,10 +152,7 @@
         </material>
       </collision>
     </link>
-    <gazebo reference="${prefix}${fingerprefix}_inner_finger_pad">
-      <mu1>0.2</mu1>
-      <mu2>0.2</mu2>
-    </gazebo>
+
   </xacro:macro>
 
   <xacro:macro name="outer_finger_joint" params="prefix fingerprefix">

@@ -67,4 +67,78 @@
 			<mechanicalReduction>1</mechanicalReduction>
 		</actuator>
 	</transmission>
+	<!-- <gazebo>
+		<plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+            <arm>
+                <arm_name>A3C</arm_name>
+                <palm_link>link_6</palm_link>
+                <gripper_link>left_inner_finger</gripper_link>
+                <gripper_link>right_inner_finger</gripper_link>
+            </arm>
+			<forces_angle_tolerance>91</forces_angle_tolerance>
+			<update_rate>1</update_rate>
+			<grip_count_threshold>1</grip_count_threshold>
+			<max_grip_count>10</max_grip_count>
+			<release_tolerance>0.001</release_tolerance>
+			<disable_collisions_on_attach>true</disable_collisions_on_attach>
+			<contact_topic>__default_topic__</contact_topic>
+		</plugin>
+	</gazebo> -->
+  <!-- <link name="gripper_link">
+    <gravity>0</gravity>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 0 0"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000000 0.000000 0.000000"/>
+      <mass value="0.0001"/>
+      <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
+    </inertial>
+  </link>
+  <joint name="gripper_joint" type="revolute">
+    <parent link="link_6" />
+    <child link="gripper_link" />
+    <origin rpy="0 0 0" xyz="0.00 0 0" />
+    <limit effort="30" velocity="1.0" lower="0" upper="0" />
+  </joint>
+  <gazebo> -->
+  <link name="gripper_link">
+    <gravity>0</gravity>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 0 0"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.000000 0.000000 0.000000"/>
+      <mass value="0.0001"/>
+      <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
+    </inertial>
+  </link>
+  <joint name="gripper_joint" type="revolute">
+    <parent link="right_inner_finger" />
+    <child link="gripper_link" />
+    <origin rpy="0 0 0" xyz="0.00 0 0" />
+    <limit effort="30" velocity="1.0" lower="0" upper="0" />
+  </joint>
+  <gazebo>
+    <plugin name="gazebo_ros_vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+      <robotNamespace>/A3C</robotNamespace>
+      <bodyName>gripper_link</bodyName>
+      <topicName>grasping</topicName>
+      <maxForce>50</maxForce>
+      <maxDistance>0.10</maxDistance>
+      <minDistance>0.10</minDistance>
+    </plugin>
+  </gazebo>
 </robot>

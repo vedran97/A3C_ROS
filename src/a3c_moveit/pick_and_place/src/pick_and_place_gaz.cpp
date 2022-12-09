@@ -27,6 +27,7 @@ const moveit::core::JointModelGroup* jointModelGroup,
   //Scale velocity wrt max velocity defined joints_limits
   moveGroup.setMaxVelocityScalingFactor(1.0);
   moveGroup.setMaxAccelerationScalingFactor(1.0);
+  moveGroup.setStartStateToCurrentState();
   // If plan succeeds,execute, otherwise return
   auto success = (moveGroup.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
   if(success){
@@ -122,7 +123,7 @@ int main(int argc, char** argv)
   */
   waypoints.clear();
   geometry_msgs::Pose taskSpacePose2 = moveGroupInterface.getCurrentPose().pose;
-  taskSpacePose2.position.x -=  0.15;
+  taskSpacePose2.position.x -=  0.1400;
   waypoints.push_back(taskSpacePose2);
   executeCartesianMotion(waypoints,moveGroupInterface);
 
@@ -131,9 +132,19 @@ int main(int argc, char** argv)
   ROS_INFO_STREAM("Pick part position: " << moveGroupInterface.getCurrentPose().pose.position);
   ROS_INFO_STREAM("Pick part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
 
-  executeJointSpaceMotion({0.1550},moveGroupInterface2,gripperModelGroup,gripperPlan);
+  /**
+   * TODO: This value has been tuned along with friction and other physics, in future, it a smarter logic should be written
+  */
+  executeJointSpaceMotion({0.2700},moveGroupInterface2,gripperModelGroup,gripperPlan);
 
-
+  // /**
+  //  * Task space motion in +Z direction
+  // */
+  // waypoints.clear();
+  // geometry_msgs::Pose taskSpacePose4 = moveGroupInterface.getCurrentPose().pose;
+  // taskSpacePose4.position.z =  0.2;
+  // waypoints.push_back(taskSpacePose4);
+  // executeCartesianMotion(waypoints,moveGroupInterface);
 
   // /**
   //  * Task space motion ,Reach Out
@@ -144,14 +155,6 @@ int main(int argc, char** argv)
   // waypoints.push_back(taskSpacePose3);
   // executeCartesianMotion(waypoints,moveGroupInterface);
 
-  // /**
-  //  * Task space motion in +Z direction
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose4 = moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose4.position.z =  0.2;
-  // waypoints.push_back(taskSpacePose4);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
 
   // /**
   //  * Rotate J1 to get to approach of place position
@@ -184,7 +187,7 @@ int main(int argc, char** argv)
   // ROS_INFO_STREAM("Place part position: " << moveGroupInterface.getCurrentPose().pose.position);
   // ROS_INFO_STREAM("Place part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
 
-
+  // executeJointSpaceMotion({0.0},moveGroupInterface2,gripperModelGroup,gripperPlan);
   // /**
   //  * z+ y+ to clear the part
   // */
