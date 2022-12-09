@@ -6,6 +6,6 @@
 
   <!-- Load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="gripper_controller a3c_position_controller load" ns="/A3C"/>
+    output="screen" args="joint_traj_controller_moveit gripper_moveit " />
 
 </launch>

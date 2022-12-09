@@ -220,9 +220,9 @@
     </joint>
     <gazebo reference="base">
         <material>Gazebo/DarkGrey</material>
-        <plugin name="gazebo_ros_control">
+        <!-- <plugin name="gazebo_ros_control">
             <robotNamespace>/</robotNamespace>
-        </plugin>
+        </plugin> -->
     </gazebo>
     <gazebo reference="link_1">
         <material>Gazebo/Orange</material>
@@ -611,7 +611,7 @@
     </joint>
     <gazebo>
         <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-            <robotNamespace>/A3C/</robotNamespace>
+            <robotNamespace></robotNamespace>
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             <legacyModeNS>true</legacyModeNS>
         </plugin>

@@ -17,58 +17,58 @@ hardware_interface:
         - joint_6
         - finger_joint
     sim_control_mode: 1  # 0: position, 1: velocity
-A3C:
-  joint_state_controller:
-    type: joint_state_controller/JointStateController
-    publish_rate: 50
+# A3C:
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
 
-  joint_traj_controller:
-    type: position_controllers/JointTrajectoryController
-    joints:
-      - joint_1
-      - joint_2
-      - joint_3
-      - joint_4
-      - joint_5
-      - joint_6
-    constraints:
-        goal_time: 0.6
-        stopped_velocity_tolerance: 0.05
-        joint_1: {trajectory: 0.1, goal: 0.1}
-        joint_2: {trajectory: 0.1, goal: 0.1}
-        joint_3: {trajectory: 0.1, goal: 0.1}
-        joint_4: {trajectory: 0.1, goal: 0.1}
-        joint_5: {trajectory: 0.1, goal: 0.1}
-        joint_6: {trajectory: 0.1, goal: 0.1}
-    stop_trajectory_duration: 0.5
-    state_publish_rate:  25
-    action_monitor_rate: 10
-    gains:
-        joint_1: { p: 12000, d: 50, i: 0.0, i_clamp: 10000 }
-        joint_2: { p: 30000, d: 100, i: 0.02, i_clamp: 10000 }
-        joint_3: { p: 18000, d: 50, i: 0.01, i_clamp: 1 }
-        joint_4: { p: 18000, d: 70, i: 0.01, i_clamp: 10000 }
-        joint_5: { p: 12000, d: 70, i: 0.01, i_clamp: 1 }
-        joint_6: { p: 2000, d: 20, i: 0.0, i_clamp: 1 }
-  joint_group_position_controller:
-    type: position_controllers/JointGroupPositionController
-    joints:
-      - joint_1
-      - joint_2
-      - joint_3
-      - joint_4
-      - joint_5
-      - joint_6
-  gripper:
-    type: position_controllers/JointTrajectoryController
-    joints:
-        - finger_joint
-    constraints:
-        goal_time: 0.6
-        stopped_velocity_tolerance: 0.05
-        finger_joint: {trajectory: 0.1, goal: 0.1}
-    stop_trajectory_duration: 0.5
-    state_publish_rate:  25
-    action_monitor_rate: 10
-    gains:
-        finger_joint: { p: 5, d: 3.0, i: 0, i_clamp: 1 }
+joint_traj_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      joint_1: {trajectory: 0.1, goal: 0.1}
+      joint_2: {trajectory: 0.1, goal: 0.1}
+      joint_3: {trajectory: 0.1, goal: 0.1}
+      joint_4: {trajectory: 0.1, goal: 0.1}
+      joint_5: {trajectory: 0.1, goal: 0.1}
+      joint_6: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  gains:
+      joint_1: { p: 12000, d: 50, i: 0.0, i_clamp: 10000 }
+      joint_2: { p: 30000, d: 100, i: 0.02, i_clamp: 10000 }
+      joint_3: { p: 18000, d: 50, i: 0.01, i_clamp: 1 }
+      joint_4: { p: 18000, d: 70, i: 0.01, i_clamp: 10000 }
+      joint_5: { p: 12000, d: 70, i: 0.01, i_clamp: 1 }
+      joint_6: { p: 2000, d: 20, i: 0.0, i_clamp: 1 }
+joint_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - joint_1
+    - joint_2
+    - joint_3
+    - joint_4
+    - joint_5
+    - joint_6
+gripper:
+  type: position_controllers/JointTrajectoryController
+  joints:
+      - finger_joint
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      finger_joint: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  gains:
+      finger_joint: { p: 5, d: 3.0, i: 0, i_clamp: 1 }

@@ -12,9 +12,26 @@
     <arg name="gui" value="$(arg gazebo_gui)"/>
   </include>
 
+  <arg name="robot_description" default="robot_description"/>
   <!-- send robot urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(find a3c_description)/xacro/ros_control_traj.xacro " />
 
+  <!-- The semantic description that corresponds to the URDF -->
+  <param name="$(arg robot_description)_semantic" textfile="$(find a3c_moveit_config)/config/A3C.srdf" />
+
+    <!-- Load updated joint limits (override information from URDF) -->
+  <group ns="$(arg robot_description)_planning">
+    <rosparam command="load" file="$(find a3c_moveit_config)/config/joint_limits.yaml"/>
+    <rosparam command="load" file="$(find a3c_moveit_config)/config/cartesian_limits.yaml"/>
+  </group>
+
+  <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+  <group ns="$(arg robot_description)_kinematics">
+    <rosparam command="load" file="$(find a3c_moveit_config)/config/kinematics.yaml"/>
+  </group>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+  
   <!-- unpause only after loading robot model -->
   <arg name="unpause" value="$(eval '' if arg('paused') else '-unpause')" />
   <!-- push robot_description to factory and spawn robot in gazebo at the origin, change x,y,z arguments to spawn in a different position -->
@@ -23,10 +40,11 @@
     respawn="false" output="screen" />
 
   <!-- Load joint controller parameters for Gazebo -->
-  <rosparam file="$(find a3c_moveit_config)/config/gazebo_controllers.yaml" command="load"/>
+  <rosparam file="$(find a3c_moveit_config)/config/gazebo_controllers.yaml" />
   <!-- Spawn Gazebo ROS controllers -->
-  <node name="gazebo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller joint_traj_controller gripper" ns="/A3C"/>
+  <node name="gazebo_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller" />
   <!-- Load ROS controllers -->
-  <!-- <include file="$(dirname)/ros_controllers.launch"/> -->
+  <include file="$(dirname)/ros_controllers.launch"/>
+
 
 </launch>

@@ -19,7 +19,7 @@
   <node pkg="tf" type="static_transform_publisher" name="map_to_world" args="0 0 0 0 0 0 /map /world 10" />
 
   <rosparam file="$(find a3c_description)/config/arm_controller.yaml" command="load"/>
-  <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller controller_1 controller_2 controller_3 controller_4 controller_5 controller_6 gripper" output="screen" ns="/A3C" respawn="false"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="spawner" args="joint_state_controller joint_traj_controller gripper" output="screen" respawn="false"/>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
       <param name="publish_frequency" type="double" value="50.0" />
