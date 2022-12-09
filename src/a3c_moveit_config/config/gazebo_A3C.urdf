@@ -220,27 +220,38 @@
     </joint>
     <gazebo reference="base">
         <material>Gazebo/DarkGrey</material>
-        <!-- <plugin name="gazebo_ros_control">
-            <robotNamespace>/</robotNamespace>
-        </plugin> -->
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_1">
         <material>Gazebo/Orange</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_2">
         <material>Gazebo/DarkGrey</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_3">
         <material>Gazebo/Orange</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_4">
         <material>Gazebo/DarkGrey</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_5">
         <material>Gazebo/Orange</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <gazebo reference="link_6">
         <material>Gazebo/DarkGrey</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
     </gazebo>
     <link name="world" />
     <joint name="fixture" type="fixed">
@@ -360,6 +371,10 @@
             <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
         </inertial>
     </link>
+    <gazebo reference="left_inner_finger_pad">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+    </gazebo>
     <link name="left_inner_knuckle">
         <inertial>
             <origin rpy="0 0 0" xyz="0.000123011831763771 0.0507850843201817 0.00103968640075166" />
@@ -473,6 +488,10 @@
             <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
         </inertial>
     </link>
+    <gazebo reference="left_inner_finger_pad">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+    </gazebo>
     <link name="right_inner_knuckle">
         <inertial>
             <origin rpy="0 0 0" xyz="0.000123011831763771 0.0507850843201817 0.00103968640075166" />
