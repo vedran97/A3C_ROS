@@ -13,6 +13,8 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <iostream>
 #include <ros/ros.h>
+
+#include <std_srvs/Empty.h>
 /**
  * Execute joint space motion
 */
@@ -70,20 +72,18 @@ int main(int argc, char** argv)
   ros::WallDuration(1.0).sleep();
   // Set plan group
   static const std::string PLANNING_GROUP = "a3c_plan_group";
-  static const std::string PLANNING_GROUP_2 = "robotiq_gripper_solver";
   //Create move group interface
   moveit::planning_interface::MoveGroupInterface moveGroupInterface(PLANNING_GROUP);
-  moveit::planning_interface::MoveGroupInterface moveGroupInterface2(PLANNING_GROUP_2);
   //Create Planning scene interface
   moveit::planning_interface::PlanningSceneInterface planningSceneInterface;
   //Create a JointModelGroup ptr
   const moveit::core::JointModelGroup* jointModelGroup =
     (moveGroupInterface.getCurrentState()->getJointModelGroup(PLANNING_GROUP));
-  const moveit::core::JointModelGroup* gripperModelGroup =
-    (moveGroupInterface.getCurrentState()->getJointModelGroup(PLANNING_GROUP_2));
   //Create a Plan object
   moveit::planning_interface::MoveGroupInterface::Plan robotJointsPlan;
-  moveit::planning_interface::MoveGroupInterface::Plan gripperPlan;
+
+  ros::ServiceClient onClient = node_handle.serviceClient<std_srvs::Empty>("/A3C/on");
+  ros::ServiceClient offClient = node_handle.serviceClient<std_srvs::Empty>("/A3C/off");
   /**
    * Set all the initial waypoints
   */
@@ -99,12 +99,11 @@ int main(int argc, char** argv)
   };
   //Set first waypoint joint angle
   std::vector<double> firstWaypointJointAngles = {
-    0.450102,-0.0184897,-1.94337,0.977727,0.594344,0.686399
+    0.216918,-0.917107,-1.033627,0.005887,-1.185505,0.166678
   };
   /**
    * Move to initial approach position of picking
   */
-  executeJointSpaceMotion({0.0},moveGroupInterface2,gripperModelGroup,gripperPlan);
   executeJointSpaceMotion(firstWaypointJointAngles,moveGroupInterface,jointModelGroup,robotJointsPlan);
 
   /**
@@ -112,97 +111,72 @@ int main(int argc, char** argv)
   */
   //Set next task space pose
   geometry_msgs::Pose taskSpacePose1 = moveGroupInterface.getCurrentPose().pose;
-  taskSpacePose1.position.z = 0.1;
+  taskSpacePose1.position.z = 0.044204;
   std::vector<geometry_msgs::Pose> waypoints;
+  waypoints.push_back(taskSpacePose1);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+
+  // TODO : Add pick logic  
+  ROS_INFO_STREAM("Pick part position: " << moveGroupInterface.getCurrentPose().pose.position);
+  ROS_INFO_STREAM("Pick part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
+  std_srvs::Empty::Request req;
+  std_srvs::Empty::Response resp;
+  bool success = onClient.call(req,resp);
+  ROS_INFO_STREAM("Service Status: Gripper triggered? : " << success);
+  ros::Duration(1).sleep();
+
+
+  /**
+   * Task space motion in +Z direction
+  */
+  //Set next task space pose
+  waypoints.clear();
+  taskSpacePose1 = moveGroupInterface.getCurrentPose().pose;
+  taskSpacePose1.position.z += 0.1;
+  waypoints.push_back(taskSpacePose1);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+  
+  /**
+   * Rotate J1 to get to approach of place position
+  */
+  std::vector<double> secondWaypointJointAngles = moveGroupInterface.getCurrentJointValues();
+  secondWaypointJointAngles.at(0) = 2.06687;
+  executeJointSpaceMotion(secondWaypointJointAngles,moveGroupInterface,jointModelGroup,robotJointsPlan);
+
+
+
+  /**
+   * Task space motion in -Z direction
+  */
+  waypoints.clear();
+  taskSpacePose1=moveGroupInterface.getCurrentPose().pose;
+  taskSpacePose1.position.z -= 0.1;
+  waypoints.push_back(taskSpacePose1);
+  executeCartesianMotion(waypoints,moveGroupInterface);
+
+
+  // TODO : Place the part 
+  ROS_INFO_STREAM("Place part position: " << moveGroupInterface.getCurrentPose().pose.position);
+  ROS_INFO_STREAM("Place part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
+
+  success = offClient.call(req,resp);
+  ROS_INFO_STREAM("Service Status: Gripper triggered? : " << success);
+  ros::Duration(1).sleep();
+
+  /**
+   * Task space motion in +Z direction
+  */
+  waypoints.clear();
+  taskSpacePose1=moveGroupInterface.getCurrentPose().pose;
+  taskSpacePose1.position.z += 0.1;
   waypoints.push_back(taskSpacePose1);
   executeCartesianMotion(waypoints,moveGroupInterface);
 
 
   /**
-   * Task space motion ,Reach In
+   * Return to home pose
   */
-  waypoints.clear();
-  geometry_msgs::Pose taskSpacePose2 = moveGroupInterface.getCurrentPose().pose;
-  taskSpacePose2.position.x -=  0.1400;
-  waypoints.push_back(taskSpacePose2);
-  executeCartesianMotion(waypoints,moveGroupInterface);
-
-
-  // TODO : Add pick logic  
-  ROS_INFO_STREAM("Pick part position: " << moveGroupInterface.getCurrentPose().pose.position);
-  ROS_INFO_STREAM("Pick part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
-
-  /**
-   * TODO: This value has been tuned along with friction and other physics, in future, it a smarter logic should be written
-  */
-  executeJointSpaceMotion({0.2700},moveGroupInterface2,gripperModelGroup,gripperPlan);
-
-  // /**
-  //  * Task space motion in +Z direction
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose4 = moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose4.position.z =  0.2;
-  // waypoints.push_back(taskSpacePose4);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
-
-  // /**
-  //  * Task space motion ,Reach Out
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose3 = moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose3.position.x +=  0.15;
-  // waypoints.push_back(taskSpacePose3);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
-
-
-  // /**
-  //  * Rotate J1 to get to approach of place position
-  // */
-  // std::vector<double> secondWaypointJointAngles = moveGroupInterface.getCurrentJointValues();
-  // secondWaypointJointAngles.at(0) = 2.06687;
-  // executeJointSpaceMotion(secondWaypointJointAngles,moveGroupInterface,jointModelGroup,robotJointsPlan);
-
-
-  // /**
-  //  * Reach in to place the part
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose6=moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose6.position.y -= 0.1;
-  // waypoints.push_back(taskSpacePose6);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
-
-  // /**
-  //  * Task space motion in -Z direction
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose5=moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose5.position.z = 0.1;
-  // waypoints.push_back(taskSpacePose5);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
-
-
-  // // TODO : Place the part 
-  // ROS_INFO_STREAM("Place part position: " << moveGroupInterface.getCurrentPose().pose.position);
-  // ROS_INFO_STREAM("Place part orientation: " << moveGroupInterface.getCurrentPose().pose.orientation);
-
-  // executeJointSpaceMotion({0.0},moveGroupInterface2,gripperModelGroup,gripperPlan);
-  // /**
-  //  * z+ y+ to clear the part
-  // */
-  // waypoints.clear();
-  // geometry_msgs::Pose taskSpacePose7 = moveGroupInterface.getCurrentPose().pose;
-  // taskSpacePose7.position.y += 0.1;
-  // taskSpacePose7.position.z += 0.1;
-  // waypoints.push_back(taskSpacePose7);
-  // executeCartesianMotion(waypoints,moveGroupInterface);
-
-
-  // /**
-  //  * Return to home pose
-  // */
-  // executeJointSpaceMotion(homePose,moveGroupInterface,jointModelGroup,robotJointsPlan);
+  executeJointSpaceMotion(homePose,moveGroupInterface,jointModelGroup,robotJointsPlan);
   ros::shutdown();
   return 0;
 }

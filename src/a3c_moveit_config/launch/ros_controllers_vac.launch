@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find a3c_moveit_config)/config/ros_controllers.yaml" command="load"/>
+
+  <!-- Load the controllers , Doesnt execute GripperMoveit controller on purpose, as the robotiq
+  gripper is assumed to be not atttached to the gripper -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_traj_controller_moveit " />
+
+</launch>

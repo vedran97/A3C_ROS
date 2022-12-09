@@ -1,9 +1,9 @@
 <launch>
-  <include file="$(find a3c_moveit_config)/launch/demo_gazebo.launch"/>
+  <include file="$(find a3c_moveit_config)/launch/demo_gazebo_vac.launch"/>
   <node name="spawn_box" 
   pkg="gazebo_ros"
   type="spawn_model"
-  args="-file $(find a3c_moveit)/pick_and_place/urdf/box.urdf -urdf -model box"
+  args="-sdf -file $(find a3c_moveit)/pick_and_place/box_model/unit_box_clone/model.sdf -model box -x -0.422706 -y 0.088502 -z 0.0017"
   respawn="false" 
   output="screen" />
 </launch>

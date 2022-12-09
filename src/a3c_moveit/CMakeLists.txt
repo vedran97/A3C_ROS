@@ -18,11 +18,16 @@ find_package(catkin REQUIRED
     tf2_ros
     tf2_eigen
     tf2_geometry_msgs
+    std_msgs
+    std_srvs 
 )
 
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED system filesystem date_time thread)
 
+generate_messages(DEPENDENCIES std_msgs std_srvs )
+
+catkin_package(CATKIN_DEPENDS std_msgs std_srvs)
 # set(THIS_PACKAGE_INCLUDE_DIRS
 #   doc/interactivity/include
 # )
