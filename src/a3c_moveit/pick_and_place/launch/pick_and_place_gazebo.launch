@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find a3c_moveit_config)/launch/demo_gazebo.launch"/>
+  <node name="spawn_box" 
+  pkg="gazebo_ros"
+  type="spawn_model"
+  args="-file $(find a3c_moveit)/pick_and_place/urdf/box.urdf -urdf -model box"
+  respawn="false" 
+  output="screen" />
+</launch>

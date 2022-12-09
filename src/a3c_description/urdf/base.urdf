@@ -216,25 +216,37 @@
         <child link="base_link" />
     </joint>
   <gazebo reference="base">
-  <material>Gazebo/DarkGrey</material>
+    <material>Gazebo/DarkGrey</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
   <gazebo reference="link_1">
     <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
   <gazebo reference="link_2">
     <material>Gazebo/DarkGrey</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
   <gazebo reference="link_3">
     <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
   <gazebo reference="link_4">
     <material>Gazebo/DarkGrey</material>
   </gazebo>
   <gazebo reference="link_5">
     <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
   <gazebo reference="link_6">
     <material>Gazebo/DarkGrey</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
   </gazebo>
     
 </robot>
