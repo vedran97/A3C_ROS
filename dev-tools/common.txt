@@ -3,9 +3,6 @@ python3-catkin-tools
 python3-dev
 python-dev
 python3-pip
-python3-plotly
-python3-tk
-python3-tqdm
 software-properties-common
 python3-vcstool
 less
@@ -17,3 +14,4 @@ xclip
 nano
 htop
 liburdfdom-tools
+psmisc

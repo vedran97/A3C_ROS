@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>a3c_description</name>
-  <version>0.0.0</version>
-  <description>The robot_description package</description>
+  <version>1.0.0</version>
+  <description>Standard A3C description package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="enpm662@todo.todo">enpm662</maintainer>
+  <author email="vedantmranade@gmail.com">Vedant Ranade</author>
+  <author email="abhoir@umd.edu">Aditi Bhoir</author>
+  <maintainer email="vedantmranade@gmail.com">Vedant Ranade</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->

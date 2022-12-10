@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 # Script to remove gz and ros processes
 killall -9 gzserver

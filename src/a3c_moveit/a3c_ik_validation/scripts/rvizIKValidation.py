@@ -141,7 +141,7 @@ X_dot[0,:] = x_dot
 X_dot[1,:] = y_dot
 X_dot[2,:] = z_dot
 
-# # in this rotation i assume dx/dt = 0 , and rate of
+# # in this rotation i assume dx/dt = 0 , and rate of roll pitch yaw to be zero
 q_init = np.array([-2.11696,-0.370079,-1.3761,-0.000627978,-1.3936,-2.11535])
 q_old = q_init
 q_list = np.zeros((6,steps))
@@ -193,7 +193,7 @@ for i in range(3):
 plt.show()
 fig.savefig("./Joint_Angles.png")
 
-
+# Init ROS now
 moveit_commander.roscpp_initialize(sys.argv)
 rospy.init_node("move_group_python_interface_tutorial", anonymous=True)
 robot = moveit_commander.RobotCommander()
@@ -224,7 +224,12 @@ move_group.stop()
 print("Start recording video now,Enable traces")
 time.sleep(5)
 
-#send circle trajectory
+#   Instead of repeatedly sending a single point to joint state publisher, I am creating 
+#   Create a RobotTrajectory object , and a joint trajectory object
+#   Add all computed joint trajectories in it in the form of a JointTrajectoryPoint()
+#   Add the correct frame id, time stamps etc
+#   Add this joint trajectories in a RobotTrajectory Object
+#   send circle trajectory using moveit's movegroup.execute() command
 jointTrajectories = moveit_msgs.msg.trajectory_msgs.msg.JointTrajectory()
 jointTrajectories.header.frame_id = "world"
 jointTrajectories.header.stamp = jointTrajectories.header.stamp.from_sec(0)

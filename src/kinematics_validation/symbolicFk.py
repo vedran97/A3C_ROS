@@ -1,7 +1,9 @@
-from contextlib import redirect_stdout
 import math
 from sympy import *
-
+import plotly.graph_objects as go
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import *
 t = symbols ('t')
 theta1 = symbols('theta1')
 theta2 = symbols('theta2')
@@ -17,14 +19,7 @@ d5=0.1635
 d6=0.1660
 pen = 0.1
 a2=0.230
-# d1=symbols('d1')
-# d2=symbols('d2')
-# d3=symbols('d3')
-# d4=symbols('d4')
-# d5=symbols('d5')
-# d6=symbols('d6')
-# a2=symbols('a2')
-# pi= symbols('pi')
+
 #Making the DH matrix
 dh_matrix = [[0,theta1,0,d1],# done
              [0,theta2-math.pi/2,-math.pi/2,d2],
@@ -53,17 +48,18 @@ def getAMatrix(input):
         [sin(theta)*sin(alpha), cos(theta)*sin(alpha), cos(alpha), cos(alpha)*d],
         [0, 0, 0, 1]]
     )
-    return simplify((A))
+    return cleanA((A))
 A = []
 j=1
 for i in dh_matrix:
     mat = getAMatrix(i)
-    print('mat no ',j)
-    pprint(mat)
+    # print('mat no ',j)
+    # pprint(mat)
     A.append(mat)
     j+=1
     
 #Transformation from EE to base
 
 T = simplify((A[0]@A[1]@A[2]@A[3]@A[4]@A[5]))
-pprint(cleanA(T.subs([(theta1, -2.11703), (theta2, -0.370231), (theta3, -1.37619), (theta4, -0.000243698), (theta5, -1.39371), (theta6, -2.11568)])))
+pprint("EE Position:")
+pprint(T)

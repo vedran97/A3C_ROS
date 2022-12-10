@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 <package>
   <name>a3c_moveit</name>
-  <version>0.1.0</version>
-  <description>Moveit tutorial and example package for Systemantics A3C</description>
+  <version>1.0.0</version>
+  <description>Moveit tutorial and example package for Systemantics A3C<br/>
+  the Tutorials subsection is a port of official moveit tutorials, made for A3C</description>
   <license>BSD</license>
 
   <author email="vedantmranade@gmail.com">Vedant Ranade</author>
-  <maintainer email="TODO@email.com">TODO</maintainer>
+  <author email="abhoir@umd.edu">Aditi Bhoir</author>
+  <maintainer email="vedantmranade@gmail.com">Vedant Ranade</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
 

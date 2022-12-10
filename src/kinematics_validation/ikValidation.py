@@ -4,6 +4,13 @@ import plotly.graph_objects as go
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import *
+
+import time
+import sys
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+
 t = symbols ('t')
 theta1 = symbols('theta1')
 theta2 = symbols('theta2')
@@ -91,18 +98,17 @@ Z_axis_6 = T_6[:3, 2]
 J = Matrix([[X_P_diff1, X_P_diff2, X_P_diff3, X_P_diff4, X_P_diff5, X_P_diff6],
     [Z_axis_1, Z_axis_2,Z_axis_3, Z_axis_4, Z_axis_5, Z_axis_6]])
 
-
 # Prepping the traj gen loop
+
 trajectory_time = 5
 steps = 500
 time_steps = np.linspace(0,trajectory_time,steps)
 delta_t = trajectory_time/steps
-radius = 0.095
-
+radius = 0.05
 omega = 2*np.pi/trajectory_time
 
-x_dot = -1 * omega * radius * np.sin(omega*time_steps-(0.785398163+3*math.pi/2))
-y_dot = +1 * omega * radius * np.cos(omega*time_steps-(0.785398163+3*math.pi/2))
+x_dot = +1 * omega * radius * np.sin(omega*time_steps-(0.785398163+3*math.pi/2))
+y_dot = -1 * omega * radius * np.cos(omega*time_steps-(0.785398163+3*math.pi/2))
 z_dot = 0
 
 X_LIST=[]
@@ -135,15 +141,16 @@ X_dot[0,:] = x_dot
 X_dot[1,:] = y_dot
 X_dot[2,:] = z_dot
 
-# # in this rotation i assume dx/dt = 0 , and rate of
+# # in this rotation i assume dx/dt = 0 , and rate of roll pitch yaw to be zero
 q_init = np.array([-2.11696,-0.370079,-1.3761,-0.000627978,-1.3936,-2.11535])
 q_old = q_init
 q_list = np.zeros((6,steps))
 Xee = np.zeros((6,steps))
 
 Xee_init = T.subs([(theta1, q_old[0]), (theta2, q_old[1]), (theta3, q_old[2]), (theta4, q_old[3]), (theta5, q_old[4]), (theta6, q_old[5])])
-pprint("Initial EEF Pose:")
-pprint(simplify(np.array(Xee_init).astype(np.float64)))
+
+pprint("Jacobian:")
+pprint(simplify(J))
 
 for i in tqdm(range(steps)):
   jacobianMatrix_step = J.subs([(theta1, q_old[0]), (theta2, q_old[1]), (theta3, q_old[2]), (theta4, q_old[3]), (theta5, q_old[4]), (theta6, q_old[5])])
@@ -151,8 +158,6 @@ for i in tqdm(range(steps)):
   joint_vel = np.linalg.pinv(jacobianMatrix_step) @ X_dot[:,i]
 
   q_old = q_old + delta_t*joint_vel
-
-  # print(joint_vel.shape)
 
   q_list[:,i] = (q_old)
 
@@ -180,6 +185,7 @@ fig.tight_layout()
 plt.show()
 fig.savefig("./Generated_Trajectory.png")
 
+#plotted joint angles generated for drawing a circle
 fig, axs = plt.subplots(3,2)
 k=0
 for i in range(3):
