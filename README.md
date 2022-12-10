@@ -7,7 +7,7 @@
     1. Docker : https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
     2. Remote-Containers :  https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
 5. Clone this repository using:
-    > ``` git clone https://github.com/Abhoir1/ENPM_662_Project2.git```
+    > ``` git clone --recurse-submodules https://github.com/Abhoir1/ENPM_662_Project2.git```
 6. From the current working directory, cd to ENPM_662_Project2 repo which u just cloned
 7. Open a terminal in /workspaces/ENPM_662_Project2 and type 
     > ``` code . ```
