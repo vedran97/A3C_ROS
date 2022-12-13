@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="A3C" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="$(find a3c_description)/xacro/base_mounting.xacro" />
+    <xacro:include filename="$(find a3c_description)/xacro/robotiq_arg2f_140_model.xacro" />
+	<joint name="gripper_fixture" type="fixed">
+		<parent link="tool0"/>
+		<child link="robotiq_arg2f_base_link"/>
+	</joint>
+</robot>

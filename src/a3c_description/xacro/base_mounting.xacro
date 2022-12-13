@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="A3C" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:include filename="$(find a3c_description)/urdf/base.urdf"/>
+	<link name="world">
+	</link>
+	<joint name="fixture" type="fixed">
+		<parent link="world"/>
+		<child link="base"/>
+	</joint>
+</robot>

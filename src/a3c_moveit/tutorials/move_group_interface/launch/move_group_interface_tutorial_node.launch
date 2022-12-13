@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="a3c_move_group_interface_tutorial" pkg="a3c_moveit" type="a3c_move_group_interface_tutorial" respawn="false" output="screen">
+  </node>
+
+</launch>

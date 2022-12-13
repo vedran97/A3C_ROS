@@ -1,0 +1,11 @@
+ros-noetic-rviz
+ros-noetic-gazebo-ros-pkgs
+ros-noetic-gazebo-ros-control
+ros-noetic-rqt
+ros-noetic-rqt-common-plugins
+ros-noetic-ros-control
+ros-noetic-ros-controllers
+ros-noetic-moveit
+ros-noetic-rviz-visual-tools
+ros-noetic-gazebo-ros 
+ros-noetic-gazebo-ros-control

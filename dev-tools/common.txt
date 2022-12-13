@@ -14,3 +14,4 @@ xclip
 nano
 htop
 liburdfdom-tools
+psmisc
