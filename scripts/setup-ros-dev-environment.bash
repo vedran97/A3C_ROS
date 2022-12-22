@@ -19,7 +19,7 @@ apt-get update
 apt-get -y install --no-install-recommends \
     $(echo $(cat $SCRIPT_LOCATION/../dev-tools/ros-packages.txt))
 
-apt-get upgrade
+apt-get upgrade -y
 
 # Source ROS
 echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /home/$USERNAME/.bashrc
