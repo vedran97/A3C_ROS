@@ -7,9 +7,9 @@
     1. Docker : https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
     2. Remote-Containers :  https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
 5. Clone this repository using:
-    > ``` git clone --recurse-submodules https://github.com/Abhoir1/ENPM_662_Project2.git```
+    > ``` git clone --recurse-submodules https://github.com/vedran97/A3C_ROS.git```
 6. From the current working directory, cd to ENPM_662_Project2 repo which u just cloned
-7. Open a terminal in /workspaces/ENPM_662_Project2 and type 
+7. Open a terminal in /workspaces/A3C_ROS and type 
     > ``` code . ```
 8. A VSCode popup should arise which says "Open folder in Container" where you choose Yes OR press F1,search for "Open Folder in Container" and execute the command
 9. Now wait for the build process to finish, once it's completed, you have a fully functional ROS1 workspace with example packages
@@ -20,14 +20,14 @@
 
 1. Once the repo is opened in a container, you have to install ROS1-dependencies. To do this, follow these steps:
     0. Inside the container, use a bash terminal will open at the following command's path if not, run it
-    1. cd /workspaces/ENPM_662_Project2
+    1. cd /workspaces/A3C_ROS
     2. rosdep update
     3. sudo apt-get update
     4. rosdep install --from-paths src --ignore-src -r -y
 
 # Building Packages:
 
-1. cd /workspaces/ENPM_662_Project2
+1. cd /workspaces/A3C_ROS
 2. catkin_make
 
 # This repository contains the following packages as of this commit:
