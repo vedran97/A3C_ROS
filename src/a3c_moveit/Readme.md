@@ -11,6 +11,7 @@
 2. a3c_ik_validation: 
     1. "roslaunch a3c_moveit ik_validation.launch" ;  Launch robot with robotiq gripper in rviz with moveit motion planner plugin and fake controllers
     2. Once the terminal stops printing stuff, run "rosrun a3c_moveit rvizIKValidation.py" in another terminal
+    3. This python script generates joint trajectories for drawing a circle using the EEF , and then sends these trajectories to Moveit's group interface. The circle generation logic is the same as kinematics_validation/ikValidation.py
 3. pick_and_place:
     1. "roslaunch a3c_moveit pick_and_place_gazebo.launch" ;  Launch robot with robotiq gripper in rviz with moveit motion planner plugin, gazebo instance and effort controllers
     2. Once the terminal stops printing stuff, run "roslaunch a3c_moveit pick_and_place_gaz_node.launch" in another terminal

@@ -1,5 +1,4 @@
 import math
-# from sympy import symbols
 import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -38,7 +37,7 @@ def getDHMatrix():
     d5=0.1635
     d6=0.1660
     a2=0.230
-    
+
     #Making the DH matrix
     dh_matrix = [[0,theta1,0,d1],
                 [0,theta2-math.pi/2,-math.pi/2,d2],
