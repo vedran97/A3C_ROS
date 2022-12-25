@@ -104,7 +104,7 @@ find_package(Eigen3 REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
  INCLUDE_DIRS include/${PROJECT_NAME}/
-#  LIBRARIES a3c_kinematics
+ LIBRARIES ${PROJECT_NAME}
 #  CATKIN_DEPENDS Eigen3 boost
 #  DEPENDS system_lib
 )
@@ -112,6 +112,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   /usr/local/lib
+  ${Eigen3_INCLUDE_DIRS}
 )
 LINK_DIRECTORIES(/usr/local/lib)
 ###########
@@ -123,18 +124,29 @@ LINK_DIRECTORIES(/usr/local/lib)
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-  src/Kinematics.cpp
+  src/a3c_kinematics/Kinematics.cpp
 )
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Eigen3_LIBRARIES})
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+install(TARGETS ${PROJECT_NAME}
+        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+        
+install(DIRECTORY include/${PROJECT_NAME}/
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(a3c_fk_node profiling/FKprofiler.cpp)
+add_executable(a3c_fk_profile_node profiling/FKprofiler.cpp)
+target_link_libraries(a3c_fk_profile_node
+  ${catkin_LIBRARIES} ${PROJECT_NAME}
+)
+add_executable(a3c_fk_node src/main.cpp)
 target_link_libraries(a3c_fk_node
   ${catkin_LIBRARIES} ${PROJECT_NAME}
 )

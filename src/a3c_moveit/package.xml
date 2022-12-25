@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <description>Moveit tutorial and example package for Systemantics A3C<br/>
   the Tutorials subsection is a port of official moveit tutorials, made for A3C</description>
-  <license>BSD</license>
+  <license>MIT</license>
 
   <author email="vedantmranade@gmail.com">Vedant Ranade</author>
   <author email="abhoir@umd.edu">Aditi Bhoir</author>

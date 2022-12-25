@@ -15,9 +15,9 @@ int main(){
     std::vector<a3c::JointAngles> testCases = std::vector<a3c::JointAngles>(std::initializer_list<a3c::JointAngles>{
         {0,0,0,0,0,0},{M_PI_2,0,0,0,0,0},{0,M_PI_2,0,0,0,0},{0,0,M_PI_2,0,0,0},{0,0,0,M_PI_2,0,0}, {0,0,0,0,0,M_PI_2}
     });
-    static const constexpr int no_of_iterations = 200000;
+    static const constexpr unsigned long no_of_iterations = 20000000;
     int64_t totalTimeMicros = 0;
-    for(int i=0;i<no_of_iterations;i++){
+    for(unsigned long i=0;i<no_of_iterations;i++){
         /**
          * Creating a random number to to use the generated fk poses in a way
         */

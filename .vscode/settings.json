@@ -73,7 +73,12 @@
         "dense": "cpp",
         "forward_list": "cpp",
         "valarray": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "*.ipp": "cpp",
+        "any": "cpp",
+        "codecvt": "cpp",
+        "regex": "cpp",
+        "future": "cpp"
     },
     "python.analysis.extraPaths": [
         "/workspaces/ENPM_662_Project2/devel/lib/python3/dist-packages",
