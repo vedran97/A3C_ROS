@@ -6,44 +6,29 @@
 
 using namespace Eigen;
 
-namespace a3c{
-using JointAngles = std::array<double, 6>;
-struct Pose {
-    Pose(const Matrix4d& T){
-        this->position = {T(0,3),T(1,3),T(2,3)};
-        this->orientation = Eigen::Quaterniond(T.topLeftCorner<3, 3>());
-    }
-    Eigen::Vector3d position;
-    Eigen::Quaterniond orientation;
-    friend std::ostream& operator << (std::ostream &out, const Pose &pose);
-
-};
-std::ostream& operator<<(std::ostream& os, const Pose& pose)
-{   
-    os << "Position: \r\n" 
-    << "x:"<<pose.position.x()<< "\r\n"
-    << "y:"<<pose.position.y()<< "\r\n"
-    << "z:"<<pose.position.z()<< "\r\n"
-    << "Orientation: \r\n" 
-    << "x:" <<pose.orientation.x() << "\r\n"
-    << "y:" <<pose.orientation.y() << "\r\n"
-    << "z:" <<pose.orientation.z() << "\r\n"
-    << "w:" <<pose.orientation.w() << "\r\n\r\n";
-    return os;
-}
-struct DHParams{
-    float d1,d2,d3,d4,d5,d6,a2; // They are expected to be in metres
-    DHParams(float d1,float d2,float d3,
-    float d4,float d5,float d6,float a2);
-};
-DHParams::DHParams(float d1,float d2,float d3,
-    float d4,float d5,float d6,float a2)
-    :d1{d1},d2{d2},d3{d3},
-    d4{d4},d5{d5},d6{d6},a2{a2}{
-    }
-class Kinematics
+namespace a3c
 {
-    private: 
+    using JointAngles = std::array<double, 6>;
+    struct Pose
+    {
+        Pose(const Matrix4d &T)
+        {
+            this->position = {T(0, 3), T(1, 3), T(2, 3)};
+            this->orientation = Eigen::Quaterniond(T.topLeftCorner<3, 3>());
+        }
+        Eigen::Vector3d position;
+        Eigen::Quaterniond orientation;
+        friend std::ostream &operator<<(std::ostream &out, const Pose &pose);
+    };
+    struct DHParams
+    {
+        float d1, d2, d3, d4, d5, d6, a2; // They are expected to be in metres
+        DHParams(float d1, float d2, float d3,
+                 float d4, float d5, float d6, float a2);
+    };
+    class Kinematics
+    {
+    private:
         constexpr static const size_t mNumDHRows = 6;
         constexpr static const size_t mNumDHCols = 4;
         constexpr static const size_t alphaIndex = 0;
@@ -54,13 +39,14 @@ class Kinematics
         DHTable dhTable;
         /**
          * Declaring these for the A3C here, later can be read from a file in the constructor and set
-        */
-        const DHParams dhParams{0.1915,0.1405,0.1415,0.230,0.1635,0.1665,0.230};
+         */
+        const DHParams dhParams{0.1915, 0.1405, 0.1415, 0.230, 0.1635, 0.1665, 0.230};
+
     public:
-        Pose fk(const JointAngles& ja) noexcept;
+        Pose fk(const JointAngles &ja) noexcept;
         Kinematics() noexcept;
-        Matrix4d getTransformationMatrix(const Eigen::Array<double,1,mNumDHCols>& dhRow) const noexcept;
-};
+        Matrix4d getTransformationMatrix(const Eigen::Array<double, 1, mNumDHCols> &dhRow) const noexcept;
+    };
 }
 
 #endif
