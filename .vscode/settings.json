@@ -1,6 +1,6 @@
 {
     "python.autoComplete.extraPaths": [
-        "/workspaces/ENPM_662_Project2/devel/lib/python3/dist-packages",
+        "/workspaces/A3C_ROS/devel/lib/python3/dist-packages",
         "/opt/ros/noetic/lib/python3/dist-packages"
     ],
     "files.associations": {
@@ -81,8 +81,9 @@
         "future": "cpp"
     },
     "python.analysis.extraPaths": [
-        "/workspaces/ENPM_662_Project2/devel/lib/python3/dist-packages",
+        "/workspaces/A3C_ROS/devel/lib/python3/dist-packages",
         "/opt/ros/noetic/lib/python3/dist-packages"
     ],
-    "ros.distro": "noetic"
+    "ros.distro": "noetic",
+    "cmake.configureOnOpen": false
 }
